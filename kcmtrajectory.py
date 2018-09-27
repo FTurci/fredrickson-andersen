@@ -14,8 +14,6 @@ model = FA1d(N,1.0)
 # equilibrate
 #model.fw_run(10*tobs)
 model.load("equilibrated.txt")
-
-
 values= []
 for i in tqdm.tqdm(range(ntrajectories)):
   model.fw_run(tobs, integrate_excitations=True)
@@ -27,5 +25,6 @@ pickle.dump(values,open("values.p",'w'))
 import pylab as pl
 
 pl.hist(values,bins=30)
+pl.show()
   #model.fw_run(1)
   #model.write(fout)
