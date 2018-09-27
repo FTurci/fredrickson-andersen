@@ -17,6 +17,11 @@ class FA1d(object):
     self.boltzmann = np.exp(-self.beta)
     self.time_integrated_excitations = 0.0
     
+  def set(self,conf):
+    self.lattice = conf
+  def get(self):
+    return self.lattice
+    
   def load(self,filename, snapshot= -1):
     """Loadsystem's state from file"""
     print ("Loading",filename)
@@ -82,12 +87,14 @@ class FA1d(object):
         print(s,pb, self.lattice[s])
         if np.random.uniform() < pb:
           self.flip(s)
+
   def status(self,constraints=False):
     print ("sites ")
     print(self.lattice.astype(int))
     if constraints:
       print(self.constraint.astype(int))
     print ("\n")
+
   def write(self, fhd):
     for p in self.lattice:
       fhd.write("%d "%p)
